@@ -2,7 +2,15 @@
 Official Repository for Efficient Time-Linear Attention Transformers.
 This is a re-working of both the Attention and Feed-Forward elements of a Transformer, resulting in faster and cheaper computation while keeping performance the same, if not in fact better. Principally, Attention is truly time-linear in sequence length with absolutely no cost to performace, and the heavy $d_{\text{linear}}=4d_{\text{model}}$ being replaced on the up-scale with a much lighter implementation.
 
-![Alt text](/posts/path/to/img.jpg)
+![Alt text](ELiTa.png)
+
+The above results are **premilinary**, on WikiText with models of sizes of <300KM params, sequence-length 256 and batch-size 128, using SentencePiece and Adam(min(1e-3, 1e-2/sqrt(step), 0.9, 0.99). In that test, they were trained over a single epoch, and the test returned from the normal Transformer was lower than the improved one by 0.02, as shown by the dotted lines on the train-loss curves above. However, the model has shown good performance on **sequence-lengths of 100K+** on the Red-Pajama dataset an model sizes of 100M+.
+
+A full paper will hopefully be released at some point. Base code is available on this repo.
+
+# Intuition
+
+The goal is to make Transformers cheaper, so that more powerful LLMs can be developped with less reliance on masses of A100s and TPUv4 pods. The attention mechanism effectively uses a global query with a special diagonal query, and a seperate sin-based QKV-eqsue element for positional embeddings, and normal softmax as ever, across. It operates in decoder-mode only as of now. This is all much clearer in the code. The feed-forward magic happens by setting $d_{\text{linear}}=8d_{\text{model}}$ but splitting the dimensions of the input axis in the second (downscale) kernel into two, and summing about each of the two splits (with sizes 8 and model-width) based on two light feed-forwards instead of a heavy upscaler. 
 
 # Equations
 **Attention2**
