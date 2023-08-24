@@ -2,12 +2,12 @@
 
 **Disclaimer: This project is in early stages, but due to a lack of time and resources, may not continue further. Please take this research into your own hands and cite this page if you do. This was done by an individual on free Colab runtimes, who would very much appreciate your generosity.**
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/acos)
+<a href="https://www.buymeacoffee.com/acos"><img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg" width="200"/></a>
 
 Official Repository for Efficient Time-Linear-Attention Transformers. Implementation in Tensorflow2.
 This is a re-working of both the Attention and Feed-Forward elements of a Transformer, resulting in faster and cheaper computation while keeping performance the same, if not in fact better. Principally, Attention is truly time-linear in sequence length with absolutely no cost to performace, and the heavy $d_{\text{linear}}=4d_{\text{model}}$ being replaced on the up-scale with a much lighter implementation.
 
-![Alt text](ELiTa.png)
+<img src="ELiTA.png" width="200"/>
 
 The above results are **premilinary**, on wikiText with models of sizes of <300K params, sequence-length 256 and batch-size 128, using SentencePiece and Adam(min(1e-3, 1e-2/sqrt(step), 0.9, 0.99). In that test, they were trained over a single epoch, and the test returned from the normal Transformer was lower than the improved one by 0.02, as shown by the dotted lines on the train-loss curves above. However, the model has shown good performance on **sequence-lengths of 100K+** on the Red-Pajama dataset an model sizes of 10M+.
 
