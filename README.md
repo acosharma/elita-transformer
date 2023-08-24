@@ -13,7 +13,7 @@ A full paper will hopefully be released at some point. Base code is available on
 
 # Intuition
 
-The goal is to make Transformers cheaper, so that more powerful LLMs can be developped with less reliance on masses of A100s and TPUv4 pods.
+The goal is to make Transformers cheaper, so that more powerful LLMs can be developped with less reliance on masses of A100s and TPUv4 pods. Though perhaps it is a long way from that, scaling to much larger sequence lengths should be considerably easier.
 
 The attention mechanism manages to be time-linear by using cumulative sums, which though not original, is used in a new way. (This means it is Decoder-only.) Like in original attention, there is a (never used fully) square array of logits which are softmaxed across rows and summed with values, but here, instead of the logit being $Q(x_i)^\top K(x_j)$, it is $K(x_j)\cdot P(i, j)$, where the key transformation $K$ is now to a scalar, as is the positional information $P$. On top of this, if $i=j$, there is an additional, (seperate parameter) key transformation added.
 
