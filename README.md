@@ -7,7 +7,7 @@ This is a re-working of both the Attention and Feed-Forward elements of a Transf
 
 ![Alt text](ELiTa.png)
 
-The above results are **premilinary**, on wikiText with models of sizes of <300KM params, sequence-length 256 and batch-size 128, using SentencePiece and Adam(min(1e-3, 1e-2/sqrt(step), 0.9, 0.99). In that test, they were trained over a single epoch, and the test returned from the normal Transformer was lower than the improved one by 0.02, as shown by the dotted lines on the train-loss curves above. However, the model has shown good performance on **sequence-lengths of 100K+** on the Red-Pajama dataset an model sizes of 100M+.
+The above results are **premilinary**, on wikiText with models of sizes of <300K params, sequence-length 256 and batch-size 128, using SentencePiece and Adam(min(1e-3, 1e-2/sqrt(step), 0.9, 0.99). In that test, they were trained over a single epoch, and the test returned from the normal Transformer was lower than the improved one by 0.02, as shown by the dotted lines on the train-loss curves above. However, the model has shown good performance on **sequence-lengths of 100K+** on the Red-Pajama dataset an model sizes of 10M+.
 
 A full paper will hopefully be released at some point. Base code is available on this repo.
 
