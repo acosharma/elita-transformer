@@ -13,7 +13,9 @@ A full paper will hopefully be released at some point. Base code is available on
 
 # Intuition
 
-The goal is to make Transformers cheaper, so that more powerful LLMs can be developped with less reliance on masses of A100s and TPUv4 pods. The attention mechanism effectively uses a global query with a special diagonal query, and a seperate sin-based QKV-eqsue element for positional embeddings, and normal softmax as ever, across. It operates in decoder-mode only as of now. This is all much clearer in the code. The feed-forward magic happens by setting $d_{\text{linear}}=8d_{\text{model}}$ but splitting the dimensions of the input axis in the second (downscale) kernel into two, and summing about each of the two splits (with sizes 8 and model-width) based on two light feed-forwards instead of a heavy upscaler.
+The goal is to make Transformers cheaper, so that more powerful LLMs can be developped with less reliance on masses of A100s and TPUv4 pods.
+
+The attention mechanism manages to be time-linear by using cumulative sums, which though not original, is used in a new way. (This means it is Decoder-only.) Like in original attention, there is a (never used fully) square array of logits which are softmaxed across rows and summed with values, but here, instead of the logit being the dot of $Q(x_i)^\top K(x_j)$, it is $K(x_j)\cdot P(i, j)$, where the key transformation $K$ is now to a scalar, as is the positional information $P$. On top of this, if $i=j$, there is an additional, (seperate parameter) key transformation added.
 
 If you keep all the model dimensions same (as was done with above wikitext experiment), and layers, heads, etc, there will be a small (~5%) increase in parameter count due to the scale of 8, which is (I find) a good value for this to work, but the parameters saved in attention (as Q and K kernels no longer exist, really) should make up for this.
 
