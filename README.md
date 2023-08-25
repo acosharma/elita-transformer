@@ -28,7 +28,7 @@ If you keep all the model dimensions same (as was done with above wikitext exper
 
 Inputs: $x\in\mathbb{R}^{n\times d_1}$
 
-Parameters: $a_i, b_i, c\in\mathbb{R}^{d_2}$, $V\in\mathbb{R}^{d_3\times d_1}$
+Parameters: $k_i\in\mathbb{R}^{d_1}$,a_i, b_i, c\in\mathbb{R}^{d_2}$, $V\in\mathbb{R}^{d_3\times d_1}$
 
 Output: $y\in\mathbb{R}^{n\times d_3}$
 
