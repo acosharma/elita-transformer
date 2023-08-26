@@ -39,15 +39,14 @@ class Attention2(tf.keras.layers.Layer):
         diag = tf.einsum('bnw,hw->bhn', x, self.k['k2'])
         extra = tf.einsum('bnw,hw->bhn', x, self.k['k3'])
         values = tf.einsum('bnw,hwa->bhna', x, self.value_weight)
-
+        p2 = p2 + extra
         cross = tf.exp(tf.clip_by_value(cross, -20.0, 20.0))[..., None]
         diag = tf.exp(tf.clip_by_value(diag, -20.0, 20.0))[..., None]
         p2 = tf.exp(tf.clip_by_value(p2, -20.0, 20.0))[..., None]
-        extra = tf.exp(tf.clip_by_value(extra, -20.0, 20.0))[..., None]
 
         output = (
-            tf.cumsum(cross*values, axis=2)*p2*extra + values*diag)/(
-                tf.cumsum(cross, axis=2)*p2*extra + diag)
+            tf.cumsum(cross*values, axis=2)*p2 + values*diag)/(
+                tf.cumsum(cross, axis=2)*p2 + diag)
 
         output = tf.einsum('bhna,hwa->bnw', output, self.output_weight)
         return output
