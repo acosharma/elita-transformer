@@ -47,7 +47,7 @@ $$p_{2,i}=\sin(ia_2n^{-1}+b_2)$$
 
 $$X_i=e^{k_1^\top x_i+p_{1,i}^\top c}$$
 
-$$y_i=(e^{k_2^\top x_i}Vx_i+e^{p_{2,i}^\top c}e^{x_i^\top k_3}\sum_j^iX_jVx_j)(e^{k_2^\top x_i}+e^{p_{2,i}^\top c}e^{x_i^\top k_3}\sum_j^iX_j)^{-1}$$
+$$y_i=(e^{k_2^\top x_i}Vx_i+e^{p_{2,i}^\top c + k_3^\top x_i}\sum_j^iX_jVx_j)(e^{k_2^\top x_i}+e^{p_{2,i}^\top c + k_3^\top x_i}\sum_j^iX_j)^{-1}$$
 
 **FeedForward2**
 
