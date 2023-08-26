@@ -10,7 +10,7 @@ class Attention2(tf.keras.layers.Layer):
     def build(self, input_shape):
         self.w = input_shape[-1]
         self.k = {}
-        for name in ['k1', 'k2']:
+        for name in ['k1', 'k2', 'k3']:
             self.k[name] = self.add_weight(
                 shape=[self.H, self.w], trainable=True, initializer='random_uniform',
                 name=name)
@@ -37,15 +37,17 @@ class Attention2(tf.keras.layers.Layer):
 
         cross = tf.einsum('bnw,hw->bhn', x, self.k['k1']) + p1
         diag = tf.einsum('bnw,hw->bhn', x, self.k['k2'])
+        extra = tf.einsum('bnw,hw->bhn', x, self.k['k3'])
         values = tf.einsum('bnw,hwa->bhna', x, self.value_weight)
 
         cross = tf.exp(tf.clip_by_value(cross, -20.0, 20.0))[..., None]
         diag = tf.exp(tf.clip_by_value(diag, -20.0, 20.0))[..., None]
         p2 = tf.exp(tf.clip_by_value(p2, -20.0, 20.0))[..., None]
+        extra = tf.exp(tf.clip_by_value(extra, -20.0, 20.0))[..., None]
 
         output = (
-            tf.cumsum(cross*values, axis=2)*p2 + values*diag)/(
-                tf.cumsum(cross, axis=2)*p2 + diag)
+            tf.cumsum(cross*values, axis=2)*p2*extra + values*diag)/(
+                tf.cumsum(cross, axis=2)*p2*extra + diag)
 
         output = tf.einsum('bhna,hwa->bnw', output, self.output_weight)
         return output
