@@ -23,7 +23,7 @@ To get a grasp on the generality of this mechanism, picture this. Take a trainab
 
 The original (N, N) matrix, the $P(i, j)$, though not of that size, has a lot of freedom because it's effectively a trainable combination of sine waves, with different phases, amplitudes etc, across both dimensions. Here is an example over 8 heads and 8 layers in a 3M parameter model trained on 750M tokens, what these weights look like. Of course, as they are variant where you are in the sequence relative to the sequence length, at inference, you might want to only take a certain amount of the top right-hand corner of these squares, say a half, to indicate that you want to generate as much as the input.
 
-![](Attention Bases.png)
+![](AttentionBases.png)
 
 ## FeedForward
 The feed-forward magic works by splitting the dimensions of the down-scale kernel into the model width and linear scale factor, and summing across each of them with seperate inputs. These inputs replace the up-scale, and are simple linear layers with swish on top of sizes width and linear scale factor. More clearly, it is an einsum(i,j,ijk->k), using the two inputs i and j, and the full-size kernel ijk. We use a scale factor of 8 to account for the loss of generality, but this does not have a negative impact as described below.
