@@ -65,6 +65,16 @@ $$\sigma(x)=x(e^{-x}+1)^{-1}$$
 
 $$y=W_3\sigma(W_1x + b_1)\sigma(W_2x + b_2)^\top + b_3$$
 
+# License
+
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+
 # Cite
 ```
 {
