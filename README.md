@@ -4,7 +4,7 @@
 
 <a href="https://www.buymeacoffee.com/acos"><img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg" width="180"/></a>
 
-Official Repository for Efficient Linear-Time Attention Transformers. Implementation in Tensorflow2.
+Official Repository for Efficient Linear-Time Attention Transformers. Implementation in Tensorflow2 (PyTorch on the way).
 This is a re-working of both the Attention and Feed-Forward elements of a Transformer, resulting in faster and cheaper computation while keeping performance the same, if not in fact better. Principally, Attention is truly time-linear in sequence length with absolutely no cost to performance, and the heavy $d_{\text{linear}}=4d_{\text{model}}$ being replaced on the up-scale with a much lighter implementation.
 Though there have been many linear Attention mechanisms in the past, this one proposes to be better with the generality of its positional encodings, and its ability to upscale the FeedForward component so easily.
 We compare the results to the SoTA Transformers, with RoPE and SwiGLU etc.
