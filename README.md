@@ -6,11 +6,11 @@
 
 Official Repository for Efficient Linear-Time Attention Transformers. Implementation in Tensorflow2 (PyTorch on the way).
 This is a re-working of both the Attention and Feed-Forward elements of a Transformer, resulting in faster and cheaper computation while keeping performance the same, if not in fact better. Yes, it is another linear Attention Transformer, but with its Fourier-like general positional information, its light and much more easily scalable Feed-Forward, as well as extensive ideas in the Other Methods section, I believe more can come of this than its many counterparts.
-We compare the results to the SoTA Transformers, with RoPE and SwiGLU etc.
+I compare the results to the SoTA Transformers, with RoPE and SwiGLU etc.
 
 ![](ELiTA.png)
 
-The above results are **preliminary**, on wikitext with models of sizes of <300K params, sequence-length 256 and batch-size 128, using SentencePiece and Adam(min(1e-3, 1e-2/sqrt(step), 0.9, 0.99). (In fact, the diagram shows the poorest performance of ELiTA as it does not have the $Q$ in the logit equation below.) In that test, they were trained over a single epoch, and the test returned from the normal Transformer was lower than the improved one by 0.02, as shown by the dotted lines on the train-loss curves above. However, the model has shown good performance on **sequence-lengths of 100K+** on the Red-Pajama dataset an model sizes of 10M+. I am currently working on training a model of ~80M parameters on the sample of this dataset.
+The above results are **preliminary**, on wikitext with models of sizes of <300K params, sequence-length 256 and batch-size 128, using SentencePiece and Adam(min(1e-3, 1e-2/sqrt(step), 0.9, 0.99). (In fact, the diagram shows the poorest performance of ELiTA as it does not have the $Q$ in the logit equation below.) In that test, they were trained over a single epoch, and the test returned from the normal Transformer was lower than the improved one by 0.02, as shown by the dotted lines on the train-loss curves above. However, the model has shown good performance on **sequence-lengths of 100K+** on the Red-Pajama dataset an model sizes of 10M+. 
 
 A full paper will hopefully be released at some point. Base code is available on this repo.
 
